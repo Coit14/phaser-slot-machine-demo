@@ -3,8 +3,7 @@
   "description": "Phaser slot machine demo",
   "scripts": {
     "build": "npm run clean && vite build",
-    "bundle": "scripts/bundle.sh",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "lint:tsc": "tsc --noEmit",
@@ -32,6 +31,7 @@
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
     "prettier": "3.8.3",
+    "rimraf": "6.1.2",
     "typescript": "5.9.3",
     "vite": "8.0.8"
   },

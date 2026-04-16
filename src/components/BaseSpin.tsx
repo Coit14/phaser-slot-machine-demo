@@ -1,16 +1,11 @@
 import Phaser from 'phaser';
-import { DynamicBitmapText, Sprite, useScene } from 'phaser-jsx';
+import { DynamicBitmapText, Fragment, Sprite, useScene } from 'phaser-jsx';
 
-import { Tween } from '../components';
 import config from '../config';
-import {
-  destroyLineArr,
-  removeTextWin,
-  saveLocalStorage,
-  setColor,
-} from '../helpers';
-import options from '../options';
+import { GameStateMachine } from '../game/state';
+import { playSpinStartAudio, setSpinningTint } from '../helpers';
 import type { Game } from '../scenes';
+import { Tween } from './Tween';
 
 interface Props {
   baseSpinRef: (gameObject: Phaser.GameObjects.Sprite) => void;
@@ -21,23 +16,24 @@ export function BaseSpin(props: Props) {
   let baseSpin!: Phaser.GameObjects.Sprite;
 
   function playTweens() {
-    if (
-      !options.checkClick &&
-      scene.valueMoney >= options.coin * options.line &&
-      options.txtAutoSpin === 'AUTO'
-    ) {
-      destroyLineArr();
-      setColor(scene);
-      options.checkClick = true;
-      baseSpin.setScale(0.9);
-      removeTextWin(scene);
-      saveLocalStorage(scene);
-      scene.baseSpinTweens = new Tween(scene);
+    const fsm = scene.game.registry.get('beerSpinFsm') as GameStateMachine;
+
+    if (!fsm.isReadyToSpin()) {
+      return;
     }
+
+    if (!fsm.dispatch({ type: 'SPIN_REQUESTED' })) {
+      return;
+    }
+
+    setSpinningTint(scene);
+    playSpinStartAudio(scene);
+    baseSpin.setScale(0.9);
+    scene.baseSpinTweens = new Tween(scene);
   }
 
   return (
-    <>
+    <Fragment>
       <Sprite
         x={config.width - 275}
         y={config.height - 50}
@@ -55,10 +51,10 @@ export function BaseSpin(props: Props) {
         x={config.width - 315}
         y={config.height - 70}
         font="txt_bitmap"
-        text={options.txtSpin}
+        text="SPIN"
         fontSize={38}
         ref={(gameObject) => gameObject.setDisplayCallback(scene.textCallback)}
       />
-    </>
+    </Fragment>
   );
 }

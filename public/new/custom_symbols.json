@@ -1,0 +1,103 @@
+{
+  "textures": [
+    {
+      "image": "custom_symbols.png",
+      "format": "RGBA8888",
+      "size": {
+        "w": 224,
+        "h": 188
+      },
+      "scale": 1,
+      "frames": [
+        {
+          "filename": "symbols_0.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 112,
+            "h": 94
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 112,
+            "h": 94
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 112,
+            "h": 94
+          }
+        },
+        {
+          "filename": "symbols_1.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 112,
+            "h": 94
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 112,
+            "h": 94
+          },
+          "frame": {
+            "x": 112,
+            "y": 0,
+            "w": 112,
+            "h": 94
+          }
+        },
+        {
+          "filename": "symbols_2.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 112,
+            "h": 94
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 112,
+            "h": 94
+          },
+          "frame": {
+            "x": 0,
+            "y": 94,
+            "w": 112,
+            "h": 94
+          }
+        },
+        {
+          "filename": "symbols_3.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 112,
+            "h": 94
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 112,
+            "h": 94
+          },
+          "frame": {
+            "x": 112,
+            "y": 94,
+            "w": 112,
+            "h": 94
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "OpenAI",
+    "version": "1.0"
+  }
+}

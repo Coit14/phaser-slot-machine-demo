@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { render } from 'phaser-jsx';
 
-import { Progress } from '../components';
+import { Progress } from '../components/Progress';
 
 export class Preload extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
@@ -16,12 +16,6 @@ export class Preload extends Phaser.Scene {
     render(<Progress />, this);
 
     this.load.atlas('logo', 'images/logo/logo.png', 'images/logo/logo.json');
-
-    this.load.atlas(
-      'about',
-      'images/about/about.png',
-      'images/about/about.json',
-    );
 
     this.load.atlas('background', 'images/bg/bg.png', 'images/bg/bg.json');
 
@@ -49,18 +43,10 @@ export class Preload extends Phaser.Scene {
       'images/symbols/symbols_blur.json',
     );
 
-    this.load.atlas('line', 'images/lines/line.png', 'images/lines/line.json');
-
     this.load.atlas(
       'sound',
       'images/sound/sound.png',
       'images/sound/sound.json',
-    );
-
-    this.load.atlas(
-      'autoSpin',
-      'images/autoSpin/auto.png',
-      'images/autoSpin/auto.json',
     );
 
     this.load.bitmapFont(

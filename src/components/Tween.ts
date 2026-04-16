@@ -1,8 +1,11 @@
 import Phaser from 'phaser';
 
-import options from '../options';
+import {
+  REEL_REPEAT_BY_COLUMN,
+  REEL_SCROLL_DURATION_MS,
+  REEL_SYMBOL_HEIGHT,
+} from '../game/reels/reelConstants';
 import type { Game } from '../scenes';
-import { Spin } from '.';
 
 export class Tween {
   columnTween1;
@@ -18,15 +21,15 @@ export class Tween {
       targets: scene.container1,
       props: {
         y: {
-          value: `+=${options.symbolHeight}`,
-          duration: options.duration,
+          value: `+=${REEL_SYMBOL_HEIGHT}`,
+          duration: REEL_SCROLL_DURATION_MS,
         },
       },
-      repeat: options.repeat[0],
+      repeat: REEL_REPEAT_BY_COLUMN[0],
 
       onRepeat: (tween, target) => {
-        tween.updateTo('y', target.y + options.symbolHeight, true);
-        target.first.y = target.last.y - options.symbolHeight;
+        tween.updateTo('y', target.y + REEL_SYMBOL_HEIGHT, true);
+        target.first.y = target.last.y - REEL_SYMBOL_HEIGHT;
         const symbols = target.first
           .setVisible(true)
           .setTexture(
@@ -41,19 +44,19 @@ export class Tween {
           targets: targets[0],
           props: {
             y: {
-              value: `-=${options.symbolHeight}`,
-              duration: options.duration * 2,
+              value: `-=${REEL_SYMBOL_HEIGHT}`,
+              duration: REEL_SCROLL_DURATION_MS * 2,
             },
           },
           repeat: 1,
 
           onRepeat: (tween: Phaser.Tweens.Tween, target: { y: number }) => {
-            tween.updateTo('y', target.y - options.symbolHeight, true);
+            tween.updateTo('y', target.y - REEL_SYMBOL_HEIGHT, true);
           },
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onComplete: (tween: Phaser.Tweens.Tween, targets: any[]) => {
-            targets[0].last.y = targets[0].first.y + options.symbolHeight;
+            targets[0].last.y = targets[0].first.y + REEL_SYMBOL_HEIGHT;
             const symbols = targets[0].last;
             targets[0].moveTo(symbols, 0);
             for (let i = 0; i < 5; i++) {
@@ -74,15 +77,15 @@ export class Tween {
       targets: scene.container2,
       props: {
         y: {
-          value: `+=${options.symbolHeight}`,
-          duration: options.duration,
+          value: `+=${REEL_SYMBOL_HEIGHT}`,
+          duration: REEL_SCROLL_DURATION_MS,
         },
       },
-      repeat: options.repeat[1],
+      repeat: REEL_REPEAT_BY_COLUMN[1],
 
       onRepeat: (tween, target) => {
-        tween.updateTo('y', target.y + options.symbolHeight, true);
-        target.first.y = target.last.y - options.symbolHeight;
+        tween.updateTo('y', target.y + REEL_SYMBOL_HEIGHT, true);
+        target.first.y = target.last.y - REEL_SYMBOL_HEIGHT;
         const symbols = target.first;
         symbols
           .setVisible(true)
@@ -98,19 +101,19 @@ export class Tween {
           targets: targets[0],
           props: {
             y: {
-              value: `-=${options.symbolHeight}`,
-              duration: options.duration * 2,
+              value: `-=${REEL_SYMBOL_HEIGHT}`,
+              duration: REEL_SCROLL_DURATION_MS * 2,
             },
           },
           repeat: 1,
 
           onRepeat: (tween: Phaser.Tweens.Tween, target: { y: number }) => {
-            tween.updateTo('y', target.y - options.symbolHeight, true);
+            tween.updateTo('y', target.y - REEL_SYMBOL_HEIGHT, true);
           },
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onComplete: (tween: Phaser.Tweens.Tween, targets: any[]) => {
-            targets[0].last.y = targets[0].first.y + options.symbolHeight;
+            targets[0].last.y = targets[0].first.y + REEL_SYMBOL_HEIGHT;
             const symbols = targets[0].last;
             targets[0].moveTo(symbols, 0);
             for (let i = 0; i < 5; i++) {
@@ -131,15 +134,15 @@ export class Tween {
       targets: scene.container3,
       props: {
         y: {
-          value: `+=${options.symbolHeight}`,
-          duration: options.duration,
+          value: `+=${REEL_SYMBOL_HEIGHT}`,
+          duration: REEL_SCROLL_DURATION_MS,
         },
       },
-      repeat: options.repeat[2],
+      repeat: REEL_REPEAT_BY_COLUMN[2],
 
       onRepeat: (tween, target) => {
-        tween.updateTo('y', target.y + options.symbolHeight, true);
-        target.first.y = target.last.y - options.symbolHeight;
+        tween.updateTo('y', target.y + REEL_SYMBOL_HEIGHT, true);
+        target.first.y = target.last.y - REEL_SYMBOL_HEIGHT;
         const symbols = target.first;
         symbols
           .setVisible(true)
@@ -155,19 +158,19 @@ export class Tween {
           targets: targets[0],
           props: {
             y: {
-              value: `-=${options.symbolHeight}`,
-              duration: options.duration * 2,
+              value: `-=${REEL_SYMBOL_HEIGHT}`,
+              duration: REEL_SCROLL_DURATION_MS * 2,
             },
           },
           repeat: 1,
 
           onRepeat: (tween: Phaser.Tweens.Tween, target: { y: number }) => {
-            tween.updateTo('y', target.y - options.symbolHeight, true);
+            tween.updateTo('y', target.y - REEL_SYMBOL_HEIGHT, true);
           },
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onComplete: (tween: Phaser.Tweens.Tween, targets: any[]) => {
-            targets[0].last.y = targets[0].first.y + options.symbolHeight;
+            targets[0].last.y = targets[0].first.y + REEL_SYMBOL_HEIGHT;
             const symbols = targets[0].last;
             targets[0].moveTo(symbols, 0);
             for (let i = 0; i < 5; i++) {
@@ -188,15 +191,15 @@ export class Tween {
       targets: scene.container4,
       props: {
         y: {
-          value: `+=${options.symbolHeight}`,
-          duration: options.duration,
+          value: `+=${REEL_SYMBOL_HEIGHT}`,
+          duration: REEL_SCROLL_DURATION_MS,
         },
       },
-      repeat: options.repeat[3],
+      repeat: REEL_REPEAT_BY_COLUMN[3],
 
       onRepeat: (tween, target) => {
-        tween.updateTo('y', target.y + options.symbolHeight, true);
-        target.first.y = target.last.y - options.symbolHeight;
+        tween.updateTo('y', target.y + REEL_SYMBOL_HEIGHT, true);
+        target.first.y = target.last.y - REEL_SYMBOL_HEIGHT;
         const symbols = target.first;
         symbols
           .setVisible(true)
@@ -212,19 +215,19 @@ export class Tween {
           targets: targets[0],
           props: {
             y: {
-              value: `-=${options.symbolHeight}`,
-              duration: options.duration * 2,
+              value: `-=${REEL_SYMBOL_HEIGHT}`,
+              duration: REEL_SCROLL_DURATION_MS * 2,
             },
           },
           repeat: 1,
 
           onRepeat: (tween: Phaser.Tweens.Tween, target: { y: number }) => {
-            tween.updateTo('y', target.y - options.symbolHeight, true);
+            tween.updateTo('y', target.y - REEL_SYMBOL_HEIGHT, true);
           },
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onComplete: (tween: Phaser.Tweens.Tween, targets: any[]) => {
-            targets[0].last.y = targets[0].first.y + options.symbolHeight;
+            targets[0].last.y = targets[0].first.y + REEL_SYMBOL_HEIGHT;
             const symbols = targets[0].last;
             targets[0].moveTo(symbols, 0);
             for (let i = 0; i < 5; i++) {
@@ -245,15 +248,15 @@ export class Tween {
       targets: scene.container5,
       props: {
         y: {
-          value: `+=${options.symbolHeight}`,
-          duration: options.duration,
+          value: `+=${REEL_SYMBOL_HEIGHT}`,
+          duration: REEL_SCROLL_DURATION_MS,
         },
       },
-      repeat: options.repeat[4],
+      repeat: REEL_REPEAT_BY_COLUMN[4],
 
       onRepeat: (tween, target) => {
-        tween.updateTo('y', target.y + options.symbolHeight, true);
-        target.first.y = target.last.y - options.symbolHeight;
+        tween.updateTo('y', target.y + REEL_SYMBOL_HEIGHT, true);
+        target.first.y = target.last.y - REEL_SYMBOL_HEIGHT;
         const symbols = target.first;
         symbols
           .setVisible(true)
@@ -269,19 +272,19 @@ export class Tween {
           targets: targets[0],
           props: {
             y: {
-              value: `-=${options.symbolHeight}`,
-              duration: options.duration * 2,
+              value: `-=${REEL_SYMBOL_HEIGHT}`,
+              duration: REEL_SCROLL_DURATION_MS * 2,
             },
           },
           repeat: 1,
 
           onRepeat: (tween: Phaser.Tweens.Tween, target: { y: number }) => {
-            tween.updateTo('y', target.y - options.symbolHeight, true);
+            tween.updateTo('y', target.y - REEL_SYMBOL_HEIGHT, true);
           },
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onComplete: (tween: Phaser.Tweens.Tween, targets: any[]) => {
-            targets[0].last.y = targets[0].first.y + options.symbolHeight;
+            targets[0].last.y = targets[0].first.y + REEL_SYMBOL_HEIGHT;
             const symbols = targets[0].last;
             targets[0].moveTo(symbols, 0);
             for (let i = 0; i < 5; i++) {
@@ -293,8 +296,7 @@ export class Tween {
               scene.audio.audioReelStop.play();
               scene.audio.audioReels.stop();
             }
-            new Spin(scene);
-            options.checkClick = false;
+            scene.handleReelsFinished();
           },
         });
       },

@@ -2,7 +2,7 @@ import { Math } from 'phaser';
 import { Container as PhaserContainer, Sprite } from 'phaser-jsx';
 import type { ComponentProps } from 'react';
 
-import options from '../options';
+import { REEL_SYMBOL_HEIGHT } from '../game/reels/reelConstants';
 
 const SYMBOLS_ROWS = 5;
 
@@ -14,7 +14,7 @@ export function Container(props: ComponentProps<typeof PhaserContainer>) {
         .map((_, index) => (
           <Sprite
             x={0}
-            y={-options.symbolHeight * index}
+            y={-REEL_SYMBOL_HEIGHT * index}
             texture="symbols"
             frame={`symbols_${random()}.png`}
           />

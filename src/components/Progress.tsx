@@ -1,5 +1,5 @@
 import type Phaser from 'phaser';
-import { Graphics, Text, useScene } from 'phaser-jsx';
+import { Fragment, Graphics, Text, useScene } from 'phaser-jsx';
 
 import config from '../config';
 
@@ -10,6 +10,10 @@ export function Progress() {
   let progressBox!: Phaser.GameObjects.Graphics;
 
   scene.load.on('progress', (value: number) => {
+    if (!progressBar || !loadingText) {
+      return;
+    }
+
     progressBar.clear();
     progressBar.fillStyle(0xff00ff, 1);
 
@@ -24,13 +28,19 @@ export function Progress() {
   });
 
   scene.load.on('complete', () => {
-    progressBar.destroy();
-    progressBox.destroy();
-    loadingText.destroy();
+    if (progressBar) {
+      progressBar.destroy();
+    }
+    if (progressBox) {
+      progressBox.destroy();
+    }
+    if (loadingText) {
+      loadingText.destroy();
+    }
   });
 
   return (
-    <>
+    <Fragment>
       <Graphics ref={(gameObject) => (progressBar = gameObject)} />
 
       <Graphics
@@ -58,6 +68,6 @@ export function Progress() {
         }}
         ref={(gameObject) => (loadingText = gameObject)}
       />
-    </>
+    </Fragment>
   );
 }

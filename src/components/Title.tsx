@@ -1,8 +1,9 @@
 import type Phaser from 'phaser';
-import { Sprite, useRef, useScene } from 'phaser-jsx';
+import { Fragment, Sprite, useRef, useScene } from 'phaser-jsx';
 
-import type { Audio } from '../components';
 import config from '../config';
+import { GameStateMachine } from '../game/state';
+import type { Audio } from './Audio';
 
 const scaleObject = {
   default: 1.2,
@@ -18,37 +19,43 @@ interface Props {
 export function Title(props: Props) {
   const buttonRef = useRef<Phaser.GameObjects.Sprite>();
   const titleRef = useRef<Phaser.GameObjects.Sprite>();
+  const pulseTimerRef = useRef<Phaser.Time.TimerEvent | null>(null);
   const scene = useScene();
 
-  const timer = scene.time.addEvent({
-    delay: 150,
-    loop: true,
+  function startLogoPulseOnce() {
+    if (pulseTimerRef.current) {
+      return;
+    }
 
-    callback: () => {
-      const title = titleRef.current!;
+    pulseTimerRef.current = scene.time.addEvent({
+      delay: 150,
+      loop: true,
 
-      switch (title.scale) {
-        case scaleObject.default:
+      callback: () => {
+        const title = titleRef.current;
+        if (!title || !title.active) {
+          return;
+        }
+
+        const scale = title.scaleX;
+
+        const near = (a: number, b: number) => Math.abs(a - b) < 0.01;
+
+        if (near(scale, scaleObject.default)) {
           title.setScale(scaleObject.scale);
-          break;
-
-        case scaleObject.scale:
+        } else if (near(scale, scaleObject.scale)) {
           title.setScale(scaleObject.scale2);
-          break;
-
-        case scaleObject.scale2:
+        } else if (near(scale, scaleObject.scale2)) {
           title.setScale(scaleObject.scale3);
-          break;
-
-        default:
+        } else {
           title.setScale(scaleObject.default);
-          break;
-      }
-    },
-  });
+        }
+      },
+    });
+  }
 
   return (
-    <>
+    <Fragment>
       <Sprite
         x={config.width / 2}
         y={config.height / 2}
@@ -62,7 +69,10 @@ export function Title(props: Props) {
         texture="logo"
         frame="logo_game.png"
         scale={scaleObject.default}
-        ref={titleRef}
+        ref={(gameObject) => {
+          titleRef.current = gameObject;
+          startLogoPulseOnce();
+        }}
       />
 
       <Sprite
@@ -73,12 +83,19 @@ export function Title(props: Props) {
         scale={0.9}
         ref={buttonRef}
         onPointerDown={() => {
+          const fsm = scene.game.registry.get(
+            'beerSpinFsm',
+          ) as GameStateMachine;
+          fsm.dispatch({ type: 'ATTRACT_PLAY_TAP' });
+          fsm.dispatch({ type: 'MOCK_PAYMENT_OK' });
+
           props.audio.musicBackgroundDefault.stop();
-          timer.remove();
+          pulseTimerRef.current?.remove();
+          pulseTimerRef.current = null;
           props.audio.audioButton.play();
           scene.scene.start('Game');
         }}
       />
-    </>
+    </Fragment>
   );
 }
